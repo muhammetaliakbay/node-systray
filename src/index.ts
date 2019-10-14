@@ -62,13 +62,33 @@ export type Conf = {
   copyDir?: boolean | string
 }
 
-const getTrayBinPath = (debug: boolean = false, copyDir: boolean | string = false) => {
+const getBinaryPath = (debug: boolean = false) => {
   const binName = ({
     win32: `tray_windows${debug ? '' : '_release'}.exe`,
     darwin: `tray_darwin${debug ? '' : '_release'}`,
     linux: `tray_linux${debug ? '' : '_release'}`,
   })[process.platform]
-  const binPath = path.resolve(`${__dirname}/../traybin/${binName}`)
+  let binPath = path.resolve(`${__dirname}/../traybin/${binName}`)
+  const binExists = fs.existsSync(binPath);
+  if (binExists) {
+    return binPath
+  }
+  const localBinPath = path.resolve(process.cwd(), binName)
+  const localBinExists = fs.existsSync(localBinPath);
+  if (localBinExists) {
+    return localBinPath
+  }
+  throw new Error(`Unable to locate ${binName} executable`);
+}
+
+const getTrayBinPath = (debug: boolean = false, copyDir: boolean | string = false) => {
+  const binPath = getBinaryPath(debug);
+  const binName = ({
+    win32: `tray_windows${debug ? '' : '_release'}.exe`,
+    darwin: `tray_darwin${debug ? '' : '_release'}`,
+    linux: `tray_linux${debug ? '' : '_release'}`,
+  })[process.platform]
+
   if (copyDir) {
     copyDir = path.join((
       typeof copyDir === 'string'
@@ -85,6 +105,7 @@ const getTrayBinPath = (debug: boolean = false, copyDir: boolean | string = fals
   }
   return binPath
 }
+
 const CHECK_STR = ' (√)'
 function updateCheckedInLinux(item: MenuItem) {
   if (process.platform !== 'linux') {

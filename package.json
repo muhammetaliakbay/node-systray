@@ -1,6 +1,6 @@
 {
-  "name": "systray",
-  "version": "1.0.5",
+  "name": "@bunchtogether/node-systray",
+  "version": "1.1.0",
   "description": "An systray libray for nodejs",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

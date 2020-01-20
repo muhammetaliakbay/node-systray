@@ -62,29 +62,38 @@ export type Conf = {
   copyDir?: boolean | string
 }
 
+const getWindowsBinaryName = () => {
+  if (os.arch() === 'ia32') {
+    return 'tray_windows_i386.exe'
+  } else if (os.arch() === 'x64') {
+    return 'tray_windows_amd64.exe'
+  }
+  throw new Error('Architecture not supported, available architectures i386 and amd64')
+}
+
 const getBinaryPath = (debug: boolean = false) => {
   const binName = ({
-    win32: `tray_windows${debug ? '' : '_release'}.exe`,
+    win32: getWindowsBinaryName(),
     darwin: `tray_darwin${debug ? '' : '_release'}`,
     linux: `tray_linux${debug ? '' : '_release'}`,
   })[process.platform]
   let binPath = path.resolve(`${__dirname}/../traybin/${binName}`)
-  const binExists = fs.existsSync(binPath);
+  const binExists = fs.existsSync(binPath)
   if (binExists) {
     return binPath
   }
   const localBinPath = path.resolve(process.cwd(), binName)
-  const localBinExists = fs.existsSync(localBinPath);
+  const localBinExists = fs.existsSync(localBinPath)
   if (localBinExists) {
     return localBinPath
   }
-  throw new Error(`Unable to locate ${binName} executable`);
+  throw new Error(`Unable to locate ${binName} executable`)
 }
 
 const getTrayBinPath = (debug: boolean = false, copyDir: boolean | string = false) => {
-  const binPath = getBinaryPath(debug);
+  const binPath = getBinaryPath(debug)
   const binName = ({
-    win32: `tray_windows${debug ? '' : '_release'}.exe`,
+    win32: getWindowsBinaryName(),
     darwin: `tray_darwin${debug ? '' : '_release'}`,
     linux: `tray_linux${debug ? '' : '_release'}`,
   })[process.platform]
@@ -92,8 +101,8 @@ const getTrayBinPath = (debug: boolean = false, copyDir: boolean | string = fals
   if (copyDir) {
     copyDir = path.join((
       typeof copyDir === 'string'
-        ? copyDir
-        : `${os.homedir()}/.cache/node-systray/`), pkg.version)
+      ? copyDir
+      : `${os.homedir()}/.cache/node-systray/`), pkg.version)
 
     const copyDistPath = path.join(copyDir, binName)
     if (!fs.existsSync(copyDistPath)) {

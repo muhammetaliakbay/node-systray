@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "install": "npm run build",
+    "install": "tsc",
   },
   "engines": {
     "node": ">=4.0.0"

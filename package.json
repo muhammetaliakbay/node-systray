@@ -20,7 +20,7 @@
   "pre-commit": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zaaack/node-systray.git"
+    "url": "git+https://github.com/muhammetaliakbay/node-systray.git"
   },
   "keywords": [
     "systray",

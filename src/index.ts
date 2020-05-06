@@ -173,8 +173,8 @@ export default class SysTray extends EventEmitter {
 
   writeLine(line: string) {
     if (line) {
-      debug('writeLine', line + '\n', '=====')
-      (this._process as any).stdin.write(line.trim() + '\n')
+      debug('writeLine', line + '\n', '=====');
+      (this._process as any).stdin.write(line.trim() + '\n');
     }
     return this
   }

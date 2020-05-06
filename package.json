@@ -33,7 +33,6 @@
     "cross-env": "^5.0.5",
     "mocha": "^5.1.1",
     "nyc": "^11.2.1",
-    "ts-node": "^6.0.2",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^6.0.1",
     "typedoc": "^0.8.0",

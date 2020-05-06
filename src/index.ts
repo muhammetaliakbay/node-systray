@@ -1,4 +1,4 @@
-import * as child from 'child_process'
+import {ChildProcess, spawn} from 'child_process'
 import * as path from 'path'
 import * as os from 'os'
 import * as fs from 'fs-extra'
@@ -130,7 +130,7 @@ function updateCheckedInLinux(item: MenuItem) {
 
 export default class SysTray extends EventEmitter {
   protected _conf: Conf
-  protected _process: child.ChildProcess
+  protected _process: ChildProcess
   protected _rl: ReadLine
   protected _binPath: string
 
@@ -138,7 +138,7 @@ export default class SysTray extends EventEmitter {
     super()
     this._conf = conf
     this._binPath = getTrayBinPath(conf.debug, conf.copyDir)
-    this._process = child.spawn(this._binPath, [], {
+    this._process = spawn(this._binPath, [], {
       windowsHide: true
     })
     this._rl = createInterface({

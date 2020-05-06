@@ -3,7 +3,6 @@ import * as path from 'path'
 import * as os from 'os'
 import * as fs from 'fs-extra'
 import {EventEmitter} from 'events'
-import * as readline from 'readline'
 import Debug from 'debug'
 
 const pkg = require('../package.json')

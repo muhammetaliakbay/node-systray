@@ -1,7 +1,7 @@
 import {ChildProcess, spawn} from 'child_process'
-import * as path from 'path'
-import * as os from 'os'
-import * as fs from 'fs-extra'
+import {resolve, join} from 'path'
+import {arch, homedir} from 'os'
+import {copySync, existsSync, ensureDirSync} from 'fs-extra'
 import {EventEmitter} from 'events'
 import {ReadLine, createInterface} from 'readline'
 import Debug from 'debug'
@@ -63,9 +63,9 @@ export type Conf = {
 }
 
 const getWindowsBinaryName = () => {
-  if (os.arch() === 'ia32') {
+  if (arch() === 'ia32') {
     return 'tray_windows_i386.exe'
-  } else if (os.arch() === 'x64') {
+  } else if (arch() === 'x64') {
     return 'tray_windows_amd64.exe'
   }
   throw new Error('Architecture not supported, available architectures i386 and amd64')
@@ -77,13 +77,13 @@ const getBinaryPath = (debug: boolean = false) => {
     darwin: `tray_darwin${debug ? '' : '_release'}`,
     linux: `tray_linux${debug ? '' : '_release'}`,
   })[process.platform]
-  let binPath = path.resolve(`${__dirname}/../traybin/${binName}`)
-  const binExists = fs.existsSync(binPath)
+  let binPath = resolve(`${__dirname}/../traybin/${binName}`)
+  const binExists = existsSync(binPath)
   if (binExists) {
     return binPath
   }
-  const localBinPath = path.resolve(process.cwd(), binName)
-  const localBinExists = fs.existsSync(localBinPath)
+  const localBinPath = resolve(process.cwd(), binName)
+  const localBinExists = existsSync(localBinPath)
   if (localBinExists) {
     return localBinPath
   }
@@ -99,15 +99,15 @@ const getTrayBinPath = (debug: boolean = false, copyDir: boolean | string = fals
   })[process.platform]
 
   if (copyDir) {
-    copyDir = path.join((
+    copyDir = join((
       typeof copyDir === 'string'
       ? copyDir
-      : `${os.homedir()}/.cache/node-systray/`), pkg.version)
+      : `${homedir()}/.cache/node-systray/`), pkg.version)
 
-    const copyDistPath = path.join(copyDir, binName)
-    if (!fs.existsSync(copyDistPath)) {
-      fs.ensureDirSync(copyDir)
-      fs.copySync(binPath, copyDistPath)
+    const copyDistPath = join(copyDir, binName)
+    if (!existsSync(copyDistPath)) {
+      ensureDirSync(copyDir)
+      copySync(binPath, copyDistPath)
     }
 
     return copyDistPath

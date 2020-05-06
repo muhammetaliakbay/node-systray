@@ -5,10 +5,9 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "build": "run-s clean build:lib doc",
+    "build": "build:lib doc",
     "build:lib": "tsc",
     "install": "npm run build",
-    "clean": "del ./lib/**",
     "lint": "tslint ./src/** --type-check -p ./tsconfig.json --fix",
     "test": "cross-env DEBUG=systray* mocha -r ts-node/register ./test/**/*.test.ts",
     "doc": "typedoc --theme minimal --out ./docs ./src && touch ./docs/.nojekyll",

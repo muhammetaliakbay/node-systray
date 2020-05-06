@@ -3,6 +3,7 @@ import * as path from 'path'
 import * as os from 'os'
 import * as fs from 'fs-extra'
 import {EventEmitter} from 'events'
+import {ReadLine, createInterface} from 'readline'
 import Debug from 'debug'
 
 const pkg = require('../package.json')
@@ -130,7 +131,7 @@ function updateCheckedInLinux(item: MenuItem) {
 export default class SysTray extends EventEmitter {
   protected _conf: Conf
   protected _process: child.ChildProcess
-  protected _rl: readline.ReadLine
+  protected _rl: ReadLine
   protected _binPath: string
 
   constructor(conf: Conf) {
@@ -140,7 +141,7 @@ export default class SysTray extends EventEmitter {
     this._process = child.spawn(this._binPath, [], {
       windowsHide: true
     })
-    this._rl = readline.createInterface({
+    this._rl = createInterface({
       input: this._process.stdout,
     })
     conf.menu.items = conf.menu.items.map(updateCheckedInLinux)

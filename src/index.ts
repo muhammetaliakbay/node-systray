@@ -2,7 +2,7 @@ import * as child from 'child_process'
 import * as path from 'path'
 import * as os from 'os'
 import * as fs from 'fs-extra'
-import * as EventEmitter from 'events'
+import {EventEmitter} from 'events'
 import * as readline from 'readline'
 import Debug from 'debug'
 

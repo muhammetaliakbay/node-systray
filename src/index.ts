@@ -141,7 +141,7 @@ export default class SysTray extends EventEmitter {
     this._process = spawn(this._binPath, [], {
       windowsHide: true
     })
-    this._rl = createInterface({
+    this._rl = (createInterface as any) ({
       input: this._process.stdout,
     })
     conf.menu.items = conf.menu.items.map(updateCheckedInLinux)
@@ -174,7 +174,7 @@ export default class SysTray extends EventEmitter {
   writeLine(line: string) {
     if (line) {
       debug('writeLine', line + '\n', '=====')
-      this._process.stdin.write(line.trim() + '\n')
+      (this._process as any).stdin.write(line.trim() + '\n')
     }
     return this
   }

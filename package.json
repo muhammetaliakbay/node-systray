@@ -10,7 +10,6 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "pre-commit": [],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/muhammetaliakbay/node-systray.git"
@@ -20,23 +19,20 @@
     "tray",
     "gui"
   ],
-  "author": "zaaack",
+  "author": "muhammetaliakbay",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zaaack/node-systray/issues"
+    "url": "https://github.com/muhammetaliakbay/node-systray/issues"
   },
-  "homepage": "https://github.com/zaaack/node-systray#readme",
+  "homepage": "https://github.com/muhammetaliakbay/node-systray#readme",
   "devDependencies": {
     "@types/debug": "^0.0.30",
     "@types/fs-extra": "^4.0.2",
     "@types/mocha": "^5.2.0",
     "@types/node": "^10.0.4",
     "cross-env": "^5.0.5",
-    "del-cli": "^1.1.0",
     "mocha": "^5.1.1",
-    "npm-run-all": "^4.0.2",
     "nyc": "^11.2.1",
-    "pre-commit": "^1.2.2",
     "ts-node": "^6.0.2",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^6.0.1",
